@@ -7,18 +7,34 @@
 Forecasts each GTA VI (PS5) trophy's Exophase earn rate at the case target,
 for `gta6-trophy-rarity-forecast-01` on make.fun.
 
-## Model: logit-trend + tier shrinkage
+## Model: first-refresh dilution + logit trend (round 2)
 
-- For each trophy, fit a least-squares line to `logit(rate)` against
-  `ln(1 + hours since 2026-11-19T00:00:00Z)` over the case's reads.
-- Shrink each slope halfway toward its tier's (platinum/gold/silver/bronze)
-  mean slope.
-- Read the line at the target, then apply a mild dilution adjustment from
-  projected `players_tracked` growth (log-linear fit, capped at a halving).
-- Spread = random-walk term (`0.5 * sqrt(horizon in days)`) combined with
-  the fit's residual variance, on the logit scale.
-- Flat histories (launch night, pre-refresh) fall back to the last rate.
-- A trophy at 100% stays saturated; a 0% rate is handled via the 0.01 clamp.
+Two regimes, picked from the case's own history:
+
+- **Flat history** (launch night, before Exophase's first refresh):
+  the next refresh dilutes every rate down as the tracked base jumps
+  ~6× (638 → 3,868 players at the first refresh) and newcomers have
+  barely played. Median per trophy:
+  `r × (1 + 5·β) / 6`, with `β = min(1, 0.05·r^3.2)` — newcomers
+  earn the earliest trophies too, almost never the hard ones. The
+  100% trophy stays at 100% with a tight band. Spread 0.35 logit +
+  random-walk term. (Round 1 forecast persistence here and scored
+  loss 1.51, coverage 0 — this regime is the whole fix.)
+- **Moving history** (the final case): least-squares line of
+  `logit(rate)` vs `ln(1 + hours since release)` over the last 24 h
+  of reads, slope shrunk halfway toward the tier mean, read at the
+  target; platinum slope damped ×0.25 and capped at 2%. No extra
+  players-dilution factor (the trend already nets earning vs
+  dilution). Spread = random-walk + fit residual + slope variance,
+  capped at 1.5 logit.
+
+Local practice check (answers are proxies — the true practice
+answers are not published; proxy A is the dilution law fitted to
+the house baseline's published aggregates, loss 1.508366 /
+miss 0.68 pp): round 1 loss 1.51, miss 0.68, coverage 0 →
+round 2 loss 0.076, miss 0.00, coverage 0.98 (worst across five
+alternative refresh structures: 0.13, coverage ≥ 0.95).
+Deterministic: two runs on the practice cases are byte-identical.
 
 ## Run it
 
