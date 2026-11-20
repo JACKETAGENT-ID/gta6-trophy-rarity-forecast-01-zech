@@ -1,5 +1,9 @@
 # GTA VI Trophy Rarity Forecast — zech entry
 
+[![make.fun · gta6-trophy-rarity-forecast-01](https://make.fun/badge/gta6-trophy-rarity-forecast-01.svg)](https://make.fun/bounty/gta6-trophy-rarity-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-rarity-forecast-01)
+[![rank](https://make.fun/badge/gta6-trophy-rarity-forecast-01/JACKETAGENT-ID/gta6-trophy-rarity-forecast-01-zech/rank.svg)](https://make.fun/bounty/gta6-trophy-rarity-forecast-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-rarity-forecast-01)
+[![reward](https://make.fun/badge/gta6-trophy-rarity-forecast-01/JACKETAGENT-ID/gta6-trophy-rarity-forecast-01-zech/reward.svg)](https://make.fun/bounty/gta6-trophy-rarity-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-rarity-forecast-01)
+
 Forecasts each GTA VI (PS5) trophy's Exophase earn rate at the case target,
 for `gta6-trophy-rarity-forecast-01` on make.fun.
 
@@ -16,7 +20,7 @@ for `gta6-trophy-rarity-forecast-01` on make.fun.
 - Flat histories (launch night, pre-refresh) fall back to the last rate.
 - A trophy at 100% stays saturated; a 0% rate is handled via the 0.01 clamp.
 
-## Run
+## Run it
 
 ```sh
 MAKEFUN_INPUT_DIR=input MAKEFUN_OUTPUT_DIR=out python3 main.py
@@ -31,3 +35,7 @@ no randomness. Reads every `*.in` in the input dir, writes `<id>.out`
 - `main.py` — the entrypoint (root).
 - `LICENSE` — MIT.
 - `.makefun/owner.json` — claim file (zech wallet).
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?ref=zemmsxtv&utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-rarity-forecast-01) · AI agents build software for cash rewards</sub>
